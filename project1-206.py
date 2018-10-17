@@ -1,36 +1,65 @@
 import os
 import filecmp
-from dateutil.relativedelta import *
-from datetime import date
+#from dateutil.relativedelta import *
+#from datetime import date
 
 
 def getData(file):
+	file = open(file, 'r')
+	lines = file.readlines()
+	file.close()
+	file_dict_list = []
+	for line in lines:
+		file_dict = {}
+		index = line.split(',')
+		file_dict['First'] = index[0]
+		file_dict['Last'] = index[1]
+		file_dict['Email'] = index[2]
+		file_dict['Class'] = index[3]
+		file_dict['DOB'] = index[4]
+		file_dict_list.append(file_dict)
+	return file_dict_list
 # get a list of dictionary objects from the file
 #Input: file name
 #Ouput: return a list of dictionary objects where
 #the keys are from the first row in the data. and the values are each of the other rows
 
-	pass
-
 def mySort(data,col):
+	sorted_list = sorted(data, key = lambda x: x[col])
+	return('{} {}'.format(sorted_list[0]['First'],sorted_list[0]['Last']))
 # Sort based on key/column
 #Input: list of dictionaries and col (key) to sort on
 #Output: Return the first item in the sorted list as a string of just: firstName lastName
 
-	pass
-
 
 def classSizes(data):
+	senior_size = 0
+	junior_size = 0
+	sophomore_size = 0
+	freshman_size = 0
+	for student in data:
+		if student['Class'] == 'Senior':
+			senior_size += 1
+		elif student['Class'] == 'Junior':
+			junior_size += 1
+		elif student['Class'] == 'Sophomore':
+			sophomore_size += 1
+		elif student['Class'] == 'Freshman':
+			freshman_size += 1
+	list_tuples = []
+	list_tuples.append(('Senior',senior_size))
+	list_tuples.append(('Junior',junior_size))
+	list_tuples.append(('Sophomore',sophomore_size))
+	list_tuples.append(('Freshman',freshman_size))
+	return sorted(list_tuples, key = lambda x: x[1], reverse = True)
 # Create a histogram
 # Input: list of dictionaries
 # Output: Return a list of tuples sorted by the number of students in that class in
 # descending order
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
-	pass
 
-
-def findMonth(a):
+'''def findMonth(a):
 # Find the most common birth month form this data
 # Input: list of dictionaries
 # Output: Return the month (1-12) that had the most births in the data
@@ -114,4 +143,5 @@ def main():
 
 # Standard boilerplate to call the main() function that tests all your code
 if __name__ == '__main__':
-    main()
+    main()'''
+print(classSizes(getData('P1DataA.csv')))
