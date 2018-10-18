@@ -59,12 +59,21 @@ def classSizes(data):
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
 
-'''def findMonth(a):
-# Find the most common birth month form this data
+def findMonth(a):
+	month_list = []
+	for student in a:
+		month_list.append(student['DOB'].split('/')[0])
+	month_dict = {}
+	for num in month_list:
+		if num not in month_dict.keys():
+			month_dict[num] = 1
+		else:
+			month_dict[num] += 1
+	final_list = sorted(month_dict.keys(), key = lambda x: month_dict[x], reverse = True)
+	return int(final_list[0])
+# Find the most common birth month from this data
 # Input: list of dictionaries
 # Output: Return the month (1-12) that had the most births in the data
-
-	pass
 
 def mySortPrint(a,col,fileName):
 #Similar to mySort, but instead of returning single
@@ -143,5 +152,4 @@ def main():
 
 # Standard boilerplate to call the main() function that tests all your code
 if __name__ == '__main__':
-    main()'''
-print(classSizes(getData('P1DataA.csv')))
+    main()
