@@ -85,13 +85,20 @@ def mySortPrint(a,col,fileName):
 	pass
 
 def findAge(a):
+	current_date = "10/23/2018"
+	a.remove(a[0])
+	age_list = []
+	for student in a:
+		age_list.append(int(current_date.split('/')[2]) - int(student['DOB'].split('/')[2]))
+	total = 0
+	for age in age_list:
+		total += age
+	return int(total/len(age_list))
 # def findAge(a):
 # Input: list of dictionaries
 # Output: Return the average age of the students and round that age to the nearest
 # integer.  You will need to work with the DOB and the current date to find the current
 # age in years.
-
-	pass
 
 
 ################################################################
