@@ -8,6 +8,7 @@ def getData(file):
 	file = open(file, 'r')
 	lines = file.readlines()
 	file.close()
+	lines.remove(lines[0])
 	file_dict_list = []
 	for line in lines:
 		file_dict = {}
@@ -76,17 +77,21 @@ def findMonth(a):
 # Output: Return the month (1-12) that had the most births in the data
 
 def mySortPrint(a,col,fileName):
+	import csv
+	sorted_list = sorted(a, key = lambda x: x[col])
+	with open('results.csv', 'w') as results:
+		header = ['First', 'Last', 'Email']
+		writer = csv.DictWriter(results, fieldnames = header, lineterminator = '\n')
+		for student in sorted_list:
+			writer.writerow({'First':student['First'],'Last':student['Last'],'Email':student['Email']})
 #Similar to mySort, but instead of returning single
 #Student, the sorted data is saved to a csv file.
 # as fist,last,email
 #Input: list of dictionaries, col (key) to sort by and output file name
 #Output: No return value, but the file is written
 
-	pass
-
 def findAge(a):
 	current_date = "10/23/2018"
-	a.remove(a[0])
 	age_list = []
 	for student in a:
 		age_list.append(int(current_date.split('/')[2]) - int(student['DOB'].split('/')[2]))
